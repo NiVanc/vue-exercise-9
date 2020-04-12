@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form>
+    <form class="signup" v-if="!isSubmitted">
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
           <!-- Exercise 1 -->
@@ -9,46 +9,42 @@
           <!-- Mail -->
           <!-- Password -->
           <!-- Store Data? Yes/No -->
-          <form class="signup">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4>Signup</h4>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4>Signup</h4>
+            </div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label for="email">First Name</label>
+                <input type="text" id="firstname" class="form-control" v-model="userData.firstName" />
               </div>
-              <div class="panel-body">
-                <div class="form-group">
-                  <label for="email">First Name</label>
-                  <input
-                    type="text"
-                    id="firstname"
-                    class="form-control"
-                    v-model="userData.firstName"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="email">Last Name</label>
-                  <input type="text" id="lastname" class="form-control" v-model="userData.lastName" />
-                </div>
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="text" id="email" class="form-control" v-model="userData.email" />
-                </div>
-                <div class="form-group">
-                  <label for="email">Password</label>
-                  <input type="text" id="password" class="form-control" v-model="userData.password" />
-                </div>
-                <div class="form-group">
-                  <label for="email">Store data?</label>
-                  <br />
-                  <label for="Yes">
-                    <input type="radio" id="yes" value="true" v-model="userData.storeData" /> Yes
-                  </label>
-                  <label for="No">
-                    <input type="radio" id="no" value="false" v-model="userData.storeData" /> No
-                  </label>
-                </div>
+              <div class="form-group">
+                <label for="email">Last Name</label>
+                <input type="text" id="lastname" class="form-control" v-model="userData.lastName" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" class="form-control" v-model="userData.email" />
+              </div>
+              <div class="form-group">
+                <label for="email">Password</label>
+                <input type="text" id="password" class="form-control" v-model="userData.password" />
+              </div>
+              <div class="form-group">
+                <label for="email">Store data?</label>
+                <br />
+                <label for="Yes">
+                  <input type="radio" id="yes" value="true" v-model="userData.storeData" /> Yes
+                </label>
+                <label for="No">
+                  <input type="radio" id="no" value="false" v-model="userData.storeData" /> No
+                </label>
+              </div>
+              <div class="forrm-group">
+                <button class="btn btn-primary" @click.prevent="submitted">Submit!</button>
               </div>
             </div>
-          </form>
+          </div>
 
           <!-- Exercise 2 -->
           <!-- Only display the Form if it has NOT been submitted -->
@@ -60,8 +56,7 @@
         </div>
       </div>
     </form>
-    <hr />
-    <div class="row">
+    <div class="your-data" v-if="isSubmitted">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -89,14 +84,21 @@ export default {
         email: "",
         password: "",
         storeData: true
-      }
+      },
+      isSubmitted: false
     };
+  },
+  methods: {
+    submitted() {
+      this.isSubmitted = true;
+    }
   }
 };
 </script>
 
 <style scoped>
-form.signup {
+form.signup,
+.your-data {
   margin-top: 55px;
 }
 </style>
