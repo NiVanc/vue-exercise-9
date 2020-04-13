@@ -14,21 +14,19 @@
               <h4>Signup</h4>
             </div>
             <div class="panel-body">
-              <div class="form-group">
-                <label for="email">First Name</label>
-                <input type="text" id="firstname" class="form-control" v-model="userData.firstName" />
-              </div>
-              <div class="form-group">
-                <label for="email">Last Name</label>
-                <input type="text" id="lastname" class="form-control" v-model="userData.lastName" />
-              </div>
+              <app-fullname v-model="userData.fullName"></app-fullname>
               <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" id="email" class="form-control" v-model="userData.email" />
               </div>
               <div class="form-group">
                 <label for="email">Password</label>
-                <input type="text" id="password" class="form-control" v-model="userData.password" />
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control"
+                  v-model="userData.password"
+                />
               </div>
               <div class="form-group">
                 <label for="email">Store data?</label>
@@ -63,7 +61,7 @@
             <h4>Your Data</h4>
           </div>
           <div class="panel-body">
-            <p>Full Name: {{ userData.firstName }} {{ userData.lastName }}</p>
+            <p>Full Name: {{ userData.fullName }}</p>
             <p>Mail: {{ userData.email }}</p>
             <p>Password: {{ userData.password }}</p>
             <p>Store in Database?: {{ userData.storeData }}</p>
@@ -75,18 +73,22 @@
 </template>
 
 <script>
+import FullName from "./FullName.vue";
+
 export default {
   data() {
     return {
       userData: {
-        firstName: "",
-        lastName: "",
+        fullName: "",
         email: "",
         password: "",
         storeData: true
       },
       isSubmitted: false
     };
+  },
+  components: {
+    "app-fullname": FullName
   },
   methods: {
     submitted() {
